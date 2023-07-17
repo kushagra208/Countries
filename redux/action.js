@@ -28,7 +28,7 @@ import { loadUserFailure,
    } from "./authReducer.js";
 import axios from "axios"
 
-const serverUrl = "http://192.168.1.7:4000/api/v1";
+const serverUrl = "http://192.168.1.3:4000/api/v1";
 
 export const login = (email, password) => async (dispatch) => {
   try{

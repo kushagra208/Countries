@@ -27,10 +27,10 @@ const Countries = () => {
         <ScrollView>
             <SafeAreaView>
                 <Text style = {styles.heading}>Countries</Text>
-                <Text>Country Code</Text>
+                <Text style = {{ fontWeight: 300 , fontSize: 18 , letterSpacing: 2 , textTransform: "uppercase" , textAlign: "center" , marginTop: 50}} >Country Code</Text>
                 <TextInput
                 style = {styles.input}
-                placeholder = "Country"
+                placeholder = "Country (Capital Letters)"
                 onChangeText={setCode}
                 />
                 <Button
@@ -62,13 +62,34 @@ const Countries = () => {
       <Dialog.Title>Result</Dialog.Title>
       <Dialog.Content>
         { country.loading ? <Loader /> : <>
-        <Text>Name: {country.data.country?.name}</Text>
-        <Text>Code: {country.data.country?.code}</Text>
-        <Text>Native: {country.data.country?.native}</Text>
-        <Text>Phone: {country.data.country?.phone}</Text>
-        <Text>Currency: {country.data.country?.currency}</Text>
-        <Text>Continent Code: {country.data.country?.continent.code}</Text>
-        <Text>Continent Name: {country.data.country?.continent.name}</Text>
+        <View style = {{ flexDirection: "row" , alignItems: "center" , gap: 10 }}>
+          <Text style = {{ fontSize: 18 , color: "#900"}}>Name: </Text>
+          <Text>{country.data.country?.name.length > 25 ? `${country.data.country?.name.slice(0 , 25)}...` : country.data.country?.name}</Text>
+        </View>
+        <View style = {{ flexDirection: "row" , alignItems: "center" , gap: 10 }}>
+          <Text style = {{ fontSize: 18 , color: "#900"}}>Code: </Text>
+          <Text>{country.data.country?.code}</Text>
+        </View>
+        <View style = {{ flexDirection: "row" , alignItems: "center" , gap: 10 }}>
+          <Text style = {{ fontSize: 18 , color: "#900"}}>Native: </Text>
+          <Text>{country.data.country?.native.length > 25 ? `${country.data.country?.native.slice(0 , 25)}...` : country.data.country?.native}</Text>
+        </View>
+        <View style = {{ flexDirection: "row" , alignItems: "center" , gap: 10 }}>
+          <Text style = {{ fontSize: 18 , color: "#900"}}>Phone: </Text>
+          <Text>{country.data.country?.phone}</Text>
+        </View>
+        <View style = {{ flexDirection: "row" , alignItems: "center" , gap: 10 }}>
+          <Text style = {{ fontSize: 18 , color: "#900"}}>Currency: </Text>
+          <Text>{country.data.country?.currency}</Text>
+        </View>
+        <View style = {{ flexDirection: "row" , alignItems: "center" , gap: 10 }}>
+          <Text style = {{ fontSize: 18 , color: "#900"}}>Continent Code: </Text>
+          <Text>{country.data.country?.continent.code}</Text>
+        </View>
+        <View style = {{ flexDirection: "row" , alignItems: "center" , gap: 10 }}>
+          <Text style = {{ fontSize: 18 , color: "#900"}}>Continent Name: </Text>
+          <Text>{country.data.country?.continent.name}</Text>
+        </View>
         </>}
       </Dialog.Content>
     </Dialog>
@@ -78,13 +99,13 @@ const Countries = () => {
       <Dialog.Content>
           <View style = {{ flexDirection: "row" , justifyContent: "space-between" , alignItems: "center" , flex: 1 }}>
             <View>
-              <Text>S No</Text>
+              <Text style = {{ fontSize: 18 , color: "#900" }}>S No</Text>
             </View>
             <View>
-              <Text>Name</Text>
+              <Text style = {{ fontSize: 18 , color: "#900" }}>Name</Text>
             </View>
             <View>
-              <Text>Code</Text>
+              <Text style = {{ fontSize: 18 , color: "#900" }}>Code</Text>
             </View>
           </View>
           {loading ? <Loader /> : data.countries.map((el, i) => (
@@ -93,7 +114,7 @@ const Countries = () => {
               <Text>{i+1}</Text>
             </View>
             <View>
-              <Text>{el.name}</Text>
+              <Text>{el.name.length > 20 ? `${el.name.slice(0, 20)}...` : el.name}</Text>
             </View>
             <View>
               <Text>{el.code}</Text>
@@ -147,7 +168,7 @@ const styles = StyleSheet.create({
       padding: 5,
       paddingLeft: 15,
       borderRadius: 5,
-      marginVertical: 15,
+      marginVertical: 20,
       fontSize: 15,
     }
   })

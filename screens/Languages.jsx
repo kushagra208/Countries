@@ -28,10 +28,10 @@ const Languages = () => {
         <ScrollView>
             <SafeAreaView>
                 <Text style = {styles.heading}>Languages</Text>
-                <Text>Language Code</Text>
+                <Text style = {{ fontWeight: 300 , fontSize: 18 , letterSpacing: 2 , textTransform: "uppercase" , textAlign: "center" , marginTop: 50}}>Language Code</Text>
                 <TextInput
                 style = {styles.input}
-                placeholder = "Language"
+                placeholder = "Language (Lowercase)"
                 onChangeText={setCode}
                 />
                 <Button
@@ -59,13 +59,22 @@ const Languages = () => {
             </SafeAreaView>
         </ScrollView>
     </View>
-    <Dialog visible = {open} style = {{ backgroundColor: "#fff" , overflow: "hidden"}} onDismiss={hideDialog2}>
+    <Dialog visible = {open} style = {{ backgroundColor: "#fff" , overflow: "hidden", justifyContent: "center" , alignItems: "center"}} onDismiss={hideDialog2}>
       <Dialog.Title>Result</Dialog.Title>
       <Dialog.Content>
         { language.loading ? <Loader /> : <>
-        <Text>Name: {language.data.language?.name}</Text>
-        <Text>Code: {language.data.language?.code}</Text>
-        <Text>Native: {language.data.language?.native}</Text>
+        <View style = {{ flexDirection: "row" , alignItems: "center" , gap: 10 }}>
+          <Text style = {{ fontSize: 18 , color: "#900"}}>Name: </Text>
+          <Text>{language.data.language?.name}</Text>
+        </View>
+        <View style = {{ flexDirection: "row" , alignItems: "center" , gap: 10 }}>
+          <Text style = {{ fontSize: 18 , color: "#900"}}>Code: </Text>
+          <Text>{language.data.language?.code}</Text>
+        </View>
+        <View style = {{ flexDirection: "row" , alignItems: "center" , gap: 10 }}>
+          <Text style = {{ fontSize: 18 , color: "#900"}}>Native: </Text>
+          <Text>{language.data.language?.native}</Text>
+        </View>
         </>}
       </Dialog.Content>
     </Dialog>
@@ -144,7 +153,7 @@ const styles = StyleSheet.create({
       padding: 5,
       paddingLeft: 15,
       borderRadius: 5,
-      marginVertical: 15,
+      marginVertical: 20,
       fontSize: 15,
     }
   })

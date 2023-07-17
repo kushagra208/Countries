@@ -3,14 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { Avatar, Button, TextInput } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
 import { register } from '../redux/action'
-import mime from 'mime'
 
 
 const Register = ({ navigation , route }) => {
     
     const dispatch = useDispatch();
     
-    const [avatar , setAvatar ] = useState("");
     const [name , setName ] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -26,22 +24,13 @@ const Register = ({ navigation , route }) => {
         myForm.append("name", name);
         myForm.append("email", email);
         myForm.append("password", password);
-        myForm.append("avatar", {
-          uri: avatar,
-          type: mime.getType(avatar),
-          name: avatar.split("/").pop()
-        });
 
         dispatch(register(myForm));
     }
 
     useEffect(() => {
       
-        if(route.params) {
-            if(route.params.image){
-                setAvatar(route.params.image);
-            }
-        }
+
     
     }, [route])
     
@@ -53,14 +42,8 @@ const Register = ({ navigation , route }) => {
         alignItems: "center",
         justifyContent: "center"
     }}>
-        <Avatar.Image
-        size = {100}
-        source = {{ uri: avatar ? avatar : null }}
-        style = {{ backgroundColor: "#900" }}
-        />
-        <TouchableOpacity onPress = {handleImage}>
-            <Text style = {{ color: "#900" }}>Change Photos</Text>
-        </TouchableOpacity>
+
+        <Text style = {{ fontSize: 30 , color: "#900" , letterSpacing: 2 }}>Register</Text>
         <View style = {{ width: "70%" }}>
             <TextInput 
             style = {styles.input}

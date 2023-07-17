@@ -3,45 +3,31 @@ import React, { useEffect, useState } from 'react'
 import { Avatar, Button, TextInput } from 'react-native-paper'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadUser, logout, updateProfile } from '../redux/action'
-import mime from "mime";
 import Loader from '../components/Loader'
 
 const Profile = ({ navigation , route }) => {
 
   const { user , loading } = useSelector(state => state.auth);
   const [name , setName] = useState(user.name);
-  const [avatar , setAvatar] = useState(user.avatar.url);
-  
+
   const dispatch = useDispatch();
 
   const submitHandler = () => {
     const myForm = new FormData();
 
     myForm.append("name", name);
-    myForm.append("avatar", {
-      uri: avatar,
-      type: mime.getType(avatar),
-      name: avatar.split("/").pop()
-    });
+
     dispatch(updateProfile(myForm));
     dispatch(loadUser());
   }
-  const handleImage = () => {
-    navigation.navigate("camera" , {
-      updateProfile: true
-    });
-  } 
+
   const logoutHandler = () => {
     dispatch(logout());
   }
 
   useEffect(() => {
       
-    if(route.params) {
-        if(route.params.image){
-            setAvatar(route.params.image);
-        }
-    }
+
 
 }, [route])
 
@@ -54,13 +40,8 @@ const Profile = ({ navigation , route }) => {
       justifyContent: "center",
       flex: 1
     }}>
-      <Avatar.Image
-      size = {100}
-      source = {{ uri: avatar ? avatar : null}}
-      style = {{ backgroundColor: "#900" }} />
-      <TouchableOpacity onPress={handleImage}>
-        <Text style = {{ color: "#900" , margin: 20 , fontSize: 20}}>Change Photo</Text>
-      </TouchableOpacity>
+
+      <Text style = {{ fontSize: 30 , color: "#900" , letterSpacing: 2 , marginBottom: 50 }}>Profile</Text>
       <View style = {{ width: "70%" }}>
         <TextInput
         style = {styles.input}

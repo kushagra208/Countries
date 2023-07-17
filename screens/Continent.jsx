@@ -27,10 +27,10 @@ const Continent = () => {
         <ScrollView>
             <SafeAreaView>
                 <Text style = {styles.heading}>Continents</Text>
-                <Text>Continent Code</Text>
+                <Text style = {{ fontWeight: 300 , fontSize: 18 , letterSpacing: 2 , textTransform: "uppercase" , textAlign: "center" , marginTop: 50}} >Continent Code</Text>
                 <TextInput
                 style = {styles.input}
-                placeholder = "Continent"
+                placeholder = "Continent (Capital Letters)"
                 onChangeText={setCode}
                 />
                 <Button
@@ -58,56 +58,91 @@ const Continent = () => {
             </SafeAreaView>
         </ScrollView>
     </View>
-    <Dialog visible = {open} style = {{ backgroundColor: "#fff" , overflow: "hidden"}} onDismiss={hideDialog2}>
-      <ScrollView>
 
+    {/* Dialog 1 */}
+    <Dialog visible = {open} style = {{ backgroundColor: "#fff" , overflow: "hidden" }} onDismiss={hideDialog2}>
+      
+      <ScrollView>
       <Dialog.Title>Result</Dialog.Title>
       <Dialog.Content>
         { continent.loading ? <Loader /> : <>
-        <Text>Name: {continent.data.continent?.name}</Text>
-        <Text>Code: {continent.data.continent?.code}</Text>
+        
+        <View style = {{ flexDirection: "row" , alignItems: "center" , gap: 10 }}>
+          <Text style = {{ fontSize: 18 , color: "#900"}}>Name: </Text>
+          <Text>{continent.data.continent?.name}</Text>
+        </View>
+        
+        <View style = {{ flexDirection: "row" , alignItems: "center" , gap: 10 }}>
+          <Text style = {{ fontSize: 18 , color: "#900"}}>Code: </Text>
+          <Text>{continent.data.continent?.code}</Text>
+        </View>
+        
         <View>
-          <Text>Countries:</Text>
-          {continent.data.continent?.countries.map((el , i) => (
-            <View key = {i}>
-            <Text>Name: {el.name}</Text>
-            <Text>Code: {el.code}</Text>
+          <Text style = {{ fontSize: 18 , color: "#900"}}>Countries:</Text>
+        </View>
+        
+        <View style = {{ flexDirection: "row" , justifyContent: "space-between" , alignItems: "center" , flex: 1 }}>
+            <View>
+              <Text style = {{ fontSize: 16 , color: "#900" }}>S No</Text>
+            </View>
+            <View>
+              <Text style = {{ fontSize: 16 , color: "#900" }}>Name</Text>
+            </View>
+            <View>
+              <Text style = {{ fontSize: 16 , color: "#900" }}>Code</Text>
+            </View>
+        </View>
+
+          { continent.data.continent?.countries.map((el , i) => (
+            <View key = {i} style = {{ flexDirection: "row" , justifyContent: "space-between" , alignItems: "center" , flex: 1 }}>
+              <View>
+                <Text>{i+1}</Text>
+              </View>
+              <View>
+                <Text>{el.name.length > 20 ? `${el.name.slice(0, 20)}...` : el.name}</Text>
+              </View>
+              <View>
+                <Text>{el.code}</Text>
+              </View>
             </View>
           ))}
-        </View>
 
         </>}
       </Dialog.Content>
     </ScrollView>
     </Dialog>
+    
+    {/* Dialog 2 */}
     <Dialog visible = {openDialog} style = {{ backgroundColor: "#fff" , overflow: "hidden"}} onDismiss={hideDialog}>
-        <ScrollView>
+      <ScrollView>
       <Dialog.Title>Result</Dialog.Title>
       <Dialog.Content>
           <View style = {{ flexDirection: "row" , justifyContent: "space-between" , alignItems: "center" , flex: 1 }}>
             <View>
-              <Text>S No</Text>
+              <Text style = {{ fontSize: 18 , color: "#900" }}>S No</Text>
             </View>
             <View>
-              <Text>Name</Text>
+              <Text style = {{ fontSize: 18 , color: "#900" }}>Name</Text>
             </View>
             <View>
-              <Text>Code</Text>
+              <Text style = {{ fontSize: 18 , color: "#900" }}>Code</Text>
             </View>
           </View>
+
           {loading ? <Loader /> : data.continents.map((el, i) => (
             <View key = {i} style = {{ flexDirection: "row" , justifyContent: "space-between" , alignItems: "center" , flex: 1 }}>
             <View>
               <Text>{i+1}</Text>
             </View>
             <View>
-              <Text>{el.name}</Text>
+              <Text>{el.name.length > 20 ? `${el.name.slice(0, 20)}...` : el.name}</Text>
             </View>
             <View>
               <Text>{el.code}</Text>
             </View>
             </View>
           ))}
+
       </Dialog.Content>
         </ScrollView>
     </Dialog>
@@ -155,7 +190,7 @@ const styles = StyleSheet.create({
       padding: 5,
       paddingLeft: 15,
       borderRadius: 5,
-      marginVertical: 15,
+      marginVertical: 20,
       fontSize: 15,
     }
   })
